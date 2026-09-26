@@ -64,3 +64,16 @@ jobs:
     with:
       base64-subjects: "${{ needs.build.outputs.digests }}"
       upload-assets: true # Optional: Upload to a new release
+Your computer
+   ↓
+git add .
+   ↓
+git commit -m "update"
+   ↓
+git push
+   ↓
+GitHub
+   ↓
+Netlify automatically builds
+   ↓
+LIVE website
