@@ -2,29 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Container Arrival Tracker</title>
   <script src="./supabase-config.js"></script>
   <style>
     :root {
-      --bg: #0b1320;
-      --panel: #111d2d;
-      --panel-2: #15283d;
-      --line: #22354b;
+      --bg: #0a1420;
+      --panel: #101d2e;
+      --panel-2: #162b3d;
+      --line: #243b50;
       --text: #edf5ff;
       --muted: #9bb0c8;
-      --primary: #4da3ff;
-      --success: #2ec27e;
-      --warn: #f0b429;
-      --danger: #ef6b6b;
-      --shadow: rgba(0,0,0,0.28);
+      --primary: #5d9fff;
+      --success: #2fcf86;
+      --warn: #f0b74a;
+      --danger: #ef6d6d;
+      --shadow: rgba(0,0,0,0.25);
+      --btn-text: #ffffff;
     }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, sans-serif;
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: Arial, sans-serif; }
+    body { min-height: 100vh; }
+    input, select, button, textarea {
+      font: inherit;
     }
     .login-wrap {
       position: fixed;
@@ -32,7 +32,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(8, 13, 20, 0.84);
+      background: rgba(5, 11, 18, 0.88);
       z-index: 50;
     }
     .login-box {
@@ -41,29 +41,29 @@
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 12px 30px var(--shadow);
+      box-shadow: 0 20px 40px var(--shadow);
     }
-    .login-title {
-      margin: 0 0 14px;
+    .login-box h2 {
+      margin: 0 0 16px;
       font-size: 1.1rem;
       text-align: center;
     }
-    input, button, select {
+    .login-box input, .login-box button {
       width: 100%;
-      padding: 10px 12px;
+      padding: 11px 12px;
       border-radius: 8px;
       border: 1px solid var(--line);
-      font-size: 14px;
       margin-top: 8px;
+      font-size: 14px;
     }
-    input {
-      background: #09131d;
+    .login-box input {
+      background: #07131d;
       color: var(--text);
     }
-    button {
+    .login-box button {
       background: var(--primary);
       border: none;
-      color: white;
+      color: var(--btn-text);
       font-weight: 700;
       cursor: pointer;
     }
@@ -75,131 +75,147 @@
     }
     .app {
       display: none;
-      max-width: 1180px;
+      max-width: 1300px;
       margin: 0 auto;
-      padding: 24px 16px 60px;
+      padding: 20px 16px 40px;
     }
     .topbar {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
       margin-bottom: 18px;
     }
-    h1 {
+    .topbar h1 {
       margin: 0;
-      font-size: clamp(1.6rem, 2vw, 2.3rem);
+      font-size: clamp(1.6rem, 2vw, 2.4rem);
+      line-height: 1.2;
     }
     .sync-badge {
-      display: inline-block;
-      background: #1a2d22;
-      color: #68e1a4;
-      border: 1px solid #2c4d38;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 999px;
       padding: 7px 12px;
+      background: #1b3227;
+      color: #7ae7af;
+      border: 1px solid #305146;
       font-size: 12px;
       font-weight: 700;
+      white-space: nowrap;
     }
-    .cards {
+    .stats {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 12px;
       margin-bottom: 18px;
     }
-    .card {
+    .stat {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 16px;
+      min-height: 92px;
     }
-    .card .label {
+    .stat .label {
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
-    .card .value {
-      font-size: 2rem;
+    .stat .value {
+      margin-top: 8px;
+      font-size: clamp(1.5rem, 2.5vw, 2.3rem);
       font-weight: 700;
-      margin-top: 6px;
     }
     .toolbar {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
     .toolbar input, .toolbar select {
-      width: auto;
       flex: 1 1 180px;
       min-width: 150px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--text);
     }
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 14px;
+      cursor: pointer;
+      color: var(--btn-text);
+      background: var(--panel-2);
+      font-weight: 700;
+    }
+    .btn.green { background: #1d6f52; }
+    .btn.blue { background: #2b5a84; }
+    .btn.red { background: #7f3535; }
     .table-wrap {
-      overflow-x: auto;
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 12px;
+      overflow-x: auto;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 900px;
+      min-width: 980px;
+      table-layout: fixed;
     }
     th, td {
-      text-align: left;
-      padding: 12px 10px;
+      padding: 10px 10px;
       border-bottom: 1px solid var(--line);
+      text-align: left;
       vertical-align: middle;
+      font-size: 12px;
     }
     th {
       background: #122333;
       color: var(--muted);
-      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
+      font-size: 11px;
     }
-    tbody tr:hover {
-      background: rgba(255,255,255,0.02);
-    }
-    .status {
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+    .status-badge {
       display: inline-block;
-      padding: 6px 10px;
       border-radius: 999px;
-      font-size: 12px;
+      padding: 6px 10px;
       font-weight: 700;
+      font-size: 11px;
+      white-space: nowrap;
     }
-    .status.completed { background: rgba(46,194,126,0.15); color: #72efb4; }
-    .status.progress { background: rgba(240,180,41,0.14); color: #ffd77a; }
-    .status.awaiting { background: rgba(157,176,200,0.12); color: #bfd0ed; }
-    .muted { color: var(--muted); }
-    .btn { background: var(--panel-2); color: var(--text); }
-    .btn.danger { background: #7d2f2f; }
-    .btn.success { background: #1e6e53; }
-    .row-actions {
-      display: flex;
-      gap: 8px;
-    }
+    .status-completed { background: rgba(47,207,134,0.15); color: #84f0b8; }
+    .status-progress { background: rgba(240,183,74,0.15); color: #f8d27a; }
+    .status-awaiting { background: rgba(155,176,200,0.12); color: #dfeaf8; }
+    .delay-good { color: #7ae7af; }
+    .delay-bad { color: #ff9a9a; }
+    .actions-cell { display: flex; gap: 8px; }
     .modal {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.58);
-      padding: 20px;
+      padding: 18px;
       align-items: center;
       justify-content: center;
       z-index: 60;
     }
-    .modal.open {
-      display: flex;
-    }
+    .modal.open { display: flex; }
     .modal-box {
-      width: min(92vw, 520px);
+      width: min(92vw, 600px);
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 12px;
       padding: 18px;
     }
+    .modal-box h3 { margin: 0 0 18px; }
     .modal-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -207,20 +223,28 @@
     }
     .field label {
       display: block;
+      margin-bottom: 6px;
       color: var(--muted);
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      margin-bottom: 6px;
+    }
+    .field input, .field textarea, .field select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #0a1420;
+      color: var(--text);
     }
     .field.full { grid-column: 1 / -1; }
     .actions {
       display: flex;
       justify-content: flex-end;
       gap: 10px;
-      margin-top: 16px;
+      margin-top: 18px;
     }
-    @media (max-width: 640px) {
+    @media (max-width: 720px) {
       .modal-grid { grid-template-columns: 1fr; }
     }
   </style>
@@ -228,7 +252,7 @@
 <body>
   <div id="passwordGate" class="login-wrap">
     <div class="login-box">
-      <h2 class="login-title">Container Tracker — Login</h2>
+      <h2>Container Tracker — Login</h2>
       <input id="pwInput" type="password" placeholder="Enter password" />
       <button id="pwBtn">Enter</button>
       <div id="pwError" class="error"></div>
@@ -241,11 +265,11 @@
       <span id="syncBadge" class="sync-badge">Local storage</span>
     </div>
 
-    <div class="cards">
-      <div class="card"><div class="label">Total</div><div id="totalCount" class="value">0</div></div>
-      <div class="card"><div class="label">Completed</div><div id="completedCount" class="value">0</div></div>
-      <div class="card"><div class="label">In progress</div><div id="progressCount" class="value">0</div></div>
-      <div class="card"><div class="label">Delayed</div><div id="delayedCount" class="value">0</div></div>
+    <div class="stats">
+      <div class="stat"><div class="label">Total</div><div id="totalCount" class="value">0</div></div>
+      <div class="stat"><div class="label">Completed</div><div id="completedCount" class="value">0</div></div>
+      <div class="stat"><div class="label">In progress</div><div id="progressCount" class="value">0</div></div>
+      <div class="stat"><div class="label">Delayed</div><div id="delayedCount" class="value">0</div></div>
     </div>
 
     <div class="toolbar">
@@ -256,23 +280,27 @@
         <option value="In progress">In progress</option>
         <option value="Awaiting dates">Awaiting dates</option>
       </select>
-      <button id="addBtn" class="btn success">+ Add container</button>
+      <button id="bulkAddBtn" class="btn blue">Bulk Add Containers</button>
+      <button id="shippingBtn" class="btn blue">Shipping Line</button>
+      <button id="transporterBtn" class="btn blue">Transporter</button>
+      <button id="addBtn" class="btn green">+ Add container</button>
     </div>
 
     <div class="table-wrap">
       <table>
         <thead>
           <tr>
-            <th>BL</th>
-            <th>Brand</th>
-            <th>Container</th>
-            <th>Warehouse</th>
-            <th>Arrival</th>
-            <th>Discharge</th>
-            <th>Out</th>
-            <th>Status</th>
-            <th>Delay</th>
-            <th>Action</th>
+            <th style="width:7%">SR</th>
+            <th style="width:12%">BL</th>
+            <th style="width:14%">Brand</th>
+            <th style="width:15%">Container</th>
+            <th style="width:10%">Location</th>
+            <th style="width:9%">Arrival</th>
+            <th style="width:9%">Discharge</th>
+            <th style="width:9%">Out</th>
+            <th style="width:8%">Status</th>
+            <th style="width:7%">Delay</th>
+            <th style="width:10%">Action</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -284,40 +312,46 @@
     <div class="modal-box">
       <h3 id="modalTitle">Add container</h3>
       <div class="modal-grid">
+        <div class="field"><label>SR</label><input id="f_sr" type="number" /></div>
         <div class="field"><label>BL No.</label><input id="f_bl" type="text" /></div>
-        <div class="field"><label>Container No.</label><input id="f_container" type="text" /></div>
         <div class="field"><label>Brand</label><input id="f_brand" type="text" /></div>
-        <div class="field"><label>Warehouse</label><input id="f_location" type="text" /></div>
+        <div class="field"><label>Container No.</label><input id="f_container" type="text" /></div>
+        <div class="field"><label>Location</label><input id="f_location" type="text" /></div>
+        <div class="field"><label>LTA status</label><input id="f_req" type="text" /></div>
         <div class="field"><label>Arrival</label><input id="f_arrival" type="date" /></div>
         <div class="field"><label>Discharge</label><input id="f_discharge" type="date" /></div>
         <div class="field"><label>Out</label><input id="f_out" type="date" /></div>
-        <div class="field"><label>LTA status</label><input id="f_req" type="text" placeholder="Request Done" /></div>
+        <div class="field"><label>Shipping Line</label><input id="f_shipping" type="text" /></div>
+        <div class="field full"><label>Transporter</label><input id="f_transporter" type="text" /></div>
       </div>
       <div class="actions">
-        <button id="deleteBtn" class="btn danger" style="display:none;">Delete</button>
+        <button id="deleteBtn" class="btn red" style="display:none;">Delete</button>
         <button id="cancelBtn" class="btn">Cancel</button>
-        <button id="saveBtn" class="btn success">Save</button>
+        <button id="saveBtn" class="btn green">Save</button>
       </div>
     </div>
   </div>
 
   <script>
-    const BASE_ROWS = [
-      { bl: 'MEDUXW386932', brand: 'AMICA GOLD', container: 'MSNU1360212', location: 'HINO 1-2', arrival: '2026-08-13', discharge: '2026-08-13', out: '2026-08-15', req_status: 'Request Done' },
-      { bl: 'ABCD123456', brand: 'AMICA GOLD', container: 'MSNU2345678', location: 'HINO 1', arrival: '2026-08-15', discharge: '2026-08-18', out: '', req_status: '' },
-      { bl: 'ZWXY987654', brand: 'NEXUS', container: 'TCLU9090909', location: 'HINO 1-2', arrival: '2026-08-10', discharge: '2026-08-12', out: '2026-08-17', req_status: 'Approved' }
+    const DEFAULT_ROWS = [
+      { sr: 1, bl: 'MEDUXW386932', brand: 'AMICA GOLD', container: 'MSNU1360212', location: 'HINO 1-2', arrival: '2026-08-13', discharge: '2026-08-13', out: '2026-08-15', req_status: 'Request Done Same day', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false },
+      { sr: 2, bl: 'MEDUXW386932', brand: 'AMICA GOLD', container: 'CORU2560573', location: 'HINO 1-2', arrival: '2026-08-13', discharge: '2026-08-13', out: '2026-08-15', req_status: 'Request Done Same day', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false },
+      { sr: 3, bl: 'MEDUXW386932', brand: 'AMICA GOLD', container: 'MSNU1726615', location: 'HINO 1', arrival: '2026-08-12', discharge: '2026-08-12', out: '2026-08-15', req_status: 'Request Done Same day', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false },
+      { sr: 4, bl: 'MEDUXW386932', brand: 'AMICA GOLD', container: 'MSNU1856490', location: 'HINO 1-2', arrival: '2026-08-13', discharge: '2026-08-13', out: '2026-08-15', req_status: 'Request Done Same day', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false },
+      { sr: 5, bl: 'MEDUXW386932', brand: 'AMICA GOLD', container: 'MSMU3146973', location: 'HINO 1-2', arrival: '2026-08-13', discharge: '2026-08-14', out: '2026-08-15', req_status: 'Request Done', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false },
+      { sr: 6, bl: 'MEDUXW386932', brand: 'AMICA GOLD', container: 'MSNU3609921', location: 'HINO 1-2', arrival: '2026-08-13', discharge: '2026-08-13', out: '2026-08-15', req_status: 'Request Done Same day', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false },
+      { sr: 7, bl: 'MEDUXW386932', brand: 'AMICA GOLD', container: 'MSNU2313616', location: 'HINO 1', arrival: '2026-08-12', discharge: '2026-08-12', out: '2026-08-15', req_status: 'Request Done Same day', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false },
+      { sr: 8, bl: 'MEDUXW386932', brand: 'AMICA GOLD', container: 'MSNU2597739', location: 'HINO 1', arrival: '2026-08-12', discharge: '2026-08-12', out: '2026-08-15', req_status: 'Request Done Same day', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false },
+      { sr: 9, bl: 'MEDUXW386932', brand: 'AMICA GOLD', container: 'TGBU1040071', location: 'HINO 1-2', arrival: '2026-08-13', discharge: '2026-08-13', out: '2026-08-15', req_status: 'Request Done Same day', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false },
+      { sr: 10, bl: 'MEDUXW386932', brand: 'AMICA GOLD', container: 'MSNU2707815', location: 'HINO 1-2', arrival: '2026-08-13', discharge: '2026-08-13', out: '2026-08-15', req_status: 'Request Done Same day', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false },
+      { sr: 11, bl: 'MEDUXW472195', brand: 'AMICA 888', container: 'CORU2618206', location: 'HINO 1-2', arrival: '2026-08-13', discharge: '2026-08-13', out: '2026-08-15', req_status: 'Request Done Same day', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false },
+      { sr: 12, bl: 'MEDUXW472195', brand: 'AMICA 888', container: 'HPCU2614750', location: 'HINO 1-2', arrival: '2026-08-13', discharge: '2026-08-14', out: '2026-08-15', req_status: 'Request Done', shipping_line: 'MEDUX', transporter: 'HINO', status: 'Completed', delayed: false }
     ];
 
     const DELAY_LIMIT = 4;
     let userEdits = {};
     let userAdds = [];
     let userDeletes = {};
-
-    function getStatus(row) {
-      if (row.out) return 'Completed';
-      if (row.arrival) return 'In progress';
-      return 'Awaiting dates';
-    }
 
     function daysBetween(a, b) {
       if (!a || !b) return null;
@@ -327,14 +361,17 @@
       return Math.round((d2 - d1) / 86400000);
     }
 
+    function normalizeStatus(row) {
+      if (row.out) return 'Completed';
+      if (row.arrival) return 'In progress';
+      return 'Awaiting dates';
+    }
+
     function readLocal() {
       try {
-        const edits = JSON.parse(localStorage.getItem('cat_edits') || '{}');
-        const adds = JSON.parse(localStorage.getItem('cat_adds') || '[]');
-        const dels = JSON.parse(localStorage.getItem('cat_deletes') || '{}');
-        userEdits = edits;
-        userAdds = adds;
-        userDeletes = dels;
+        userEdits = JSON.parse(localStorage.getItem('cat_edits') || '{}');
+        userAdds = JSON.parse(localStorage.getItem('cat_adds') || '[]');
+        userDeletes = JSON.parse(localStorage.getItem('cat_deletes') || '{}');
       } catch (e) {
         userEdits = {};
         userAdds = [];
@@ -342,14 +379,15 @@
       }
     }
 
-    async function loadRemote() {
+    async function loadCloud() {
       try {
-        const data = await window.loadTrackerCloudData();
-        if (data && data.user_edits) userEdits = data.user_edits || {};
-        if (data && data.user_adds) userAdds = data.user_adds || [];
-        if (data && data.user_deletes) userDeletes = data.user_deletes || {};
+        if (!window.loadTrackerCloudData) return;
+        const cloud = await window.loadTrackerCloudData();
+        if (cloud.user_edits) userEdits = cloud.user_edits || {};
+        if (cloud.user_adds) userAdds = cloud.user_adds || [];
+        if (cloud.user_deletes) userDeletes = cloud.user_deletes || {};
       } catch (e) {
-        console.log('Cloud sync unavailable, using local data');
+        console.log('Cloud not available; using local data only');
       }
     }
 
@@ -364,11 +402,7 @@
       setSyncStatus('syncing');
       try {
         if (window.saveTrackerCloudData) {
-          await window.saveTrackerCloudData({
-            userEdits,
-            userAdds,
-            userDeletes
-          });
+          await window.saveTrackerCloudData({ userEdits, userAdds, userDeletes });
         }
         setSyncStatus('synced');
       } catch (e) {
@@ -380,33 +414,31 @@
       const badge = document.getElementById('syncBadge');
       if (type === 'syncing') {
         badge.textContent = '↻ Syncing...';
-        badge.style.background = '#392d1d';
-        badge.style.color = '#f0c872';
-        badge.style.borderColor = '#544426';
+        badge.style.background = '#382c1a';
+        badge.style.color = '#f8d27a';
       } else if (type === 'synced') {
         badge.textContent = '✓ Synced';
-        badge.style.background = '#1d3629';
-        badge.style.color = '#7ef0b3';
-        badge.style.borderColor = '#2d4b38';
+        badge.style.background = '#1a3225';
+        badge.style.color = '#7ee7b1';
       } else {
         badge.textContent = 'Local storage';
-        badge.style.background = '#1a2d22';
-        badge.style.color = '#68e1a4';
-        badge.style.borderColor = '#2c4d38';
+        badge.style.background = '#1b3227';
+        badge.style.color = '#7ae7af';
       }
     }
 
     function buildRows() {
       const rows = [];
-      BASE_ROWS.forEach((row, index) => rows.push({ ...row, __key: `base_${index}` }));
-      userAdds.forEach(row => rows.push({ ...row, __key: row.__key || `add_${Date.now()}_${Math.random()}` }));
-      return rows.filter(row => !userDeletes[row.__key]).map(row => {
+      DEFAULT_ROWS.forEach((row, idx) => rows.push({ ...row, __key: `base_${idx}` }));
+      userAdds.forEach((row) => rows.push({ ...row, __key: row.__key || `add_${Date.now()}_${Math.random()}` }));
+
+      return rows.filter((row) => !userDeletes[row.__key]).map((row) => {
         const override = userEdits[row.__key] || {};
         const merged = { ...row, ...override };
-        const status = getStatus(merged);
         const total = daysBetween(merged.arrival, merged.out);
+        const status = normalizeStatus(merged);
         const delayed = total !== null && total > DELAY_LIMIT;
-        return { ...merged, status, total, delayed }; 
+        return { ...merged, total, status, delayed, sr: merged.sr || rows.indexOf(row) + 1 };
       });
     }
 
@@ -419,11 +451,11 @@
 
     function render() {
       const search = document.getElementById('searchInput').value.trim().toLowerCase();
-      const filterStatus = document.getElementById('filterStatus').value;
-      const rows = buildRows().filter(row => {
-        const text = [row.bl, row.brand, row.container, row.location].join(' ').toLowerCase();
+      const statusFilter = document.getElementById('filterStatus').value;
+      const rows = buildRows().filter((row) => {
+        const text = [row.bl, row.brand, row.container, row.location, row.shipping_line, row.transporter].join(' ').toLowerCase();
         if (search && !text.includes(search)) return false;
-        if (filterStatus && row.status !== filterStatus) return false;
+        if (statusFilter && row.status !== statusFilter) return false;
         return true;
       });
 
@@ -433,8 +465,9 @@
       document.getElementById('delayedCount').textContent = rows.filter(r => r.delayed).length;
 
       const tbody = document.getElementById('tbody');
-      tbody.innerHTML = rows.map(row => `
+      tbody.innerHTML = rows.map((row) => `
         <tr>
+          <td>${row.sr ?? ''}</td>
           <td>${row.bl || ''}</td>
           <td>${row.brand || ''}</td>
           <td>${row.container || ''}</td>
@@ -442,13 +475,13 @@
           <td>${formatDate(row.arrival)}</td>
           <td>${formatDate(row.discharge)}</td>
           <td>${formatDate(row.out)}</td>
-          <td><span class="status ${row.status === 'Completed' ? 'completed' : row.status === 'In progress' ? 'progress' : 'awaiting'}">${row.status}</span></td>
-          <td>${row.total !== null && row.total !== undefined ? (row.delayed ? `+${row.total - DELAY_LIMIT}d` : 'On time') : '—'}</td>
-          <td><div class="row-actions"><button class="btn" data-key="${row.__key}" data-action="edit" type="button">Edit</button></div></td>
+          <td><span class="status-badge ${row.status === 'Completed' ? 'status-completed' : row.status === 'In progress' ? 'status-progress' : 'status-awaiting'}">${row.status}</span></td>
+          <td class="${row.delayed ? 'delay-bad' : 'delay-good'}">${row.total !== null && row.total !== undefined ? (row.delayed ? `+${row.total - DELAY_LIMIT}d` : 'On time') : '—'}</td>
+          <td><div class="actions-cell"><button class="btn" data-key="${row.__key}" data-action="edit">Edit</button></div></td>
         </tr>
       `).join('');
 
-      tbody.querySelectorAll('button[data-action="edit"]').forEach(btn => {
+      tbody.querySelectorAll('button[data-action="edit"]').forEach((btn) => {
         btn.addEventListener('click', () => openEdit(btn.dataset.key));
       });
     }
@@ -461,18 +494,26 @@
       document.getElementById('modal').classList.remove('open');
     }
 
-    function openAdd() {
-      document.getElementById('modalTitle').textContent = 'Add container';
-      document.getElementById('deleteBtn').style.display = 'none';
+    function resetForm() {
+      document.getElementById('f_sr').value = '';
       document.getElementById('f_bl').value = '';
-      document.getElementById('f_container').value = '';
       document.getElementById('f_brand').value = '';
+      document.getElementById('f_container').value = '';
       document.getElementById('f_location').value = '';
+      document.getElementById('f_req').value = '';
       document.getElementById('f_arrival').value = '';
       document.getElementById('f_discharge').value = '';
       document.getElementById('f_out').value = '';
-      document.getElementById('f_req').value = '';
+      document.getElementById('f_shipping').value = '';
+      document.getElementById('f_transporter').value = '';
+    }
+
+    function openAdd() {
+      document.getElementById('modalTitle').textContent = 'Add container';
+      resetForm();
+      document.getElementById('deleteBtn').style.display = 'none';
       document.getElementById('saveBtn').dataset.mode = 'add';
+      document.getElementById('saveBtn').dataset.key = '';
       openModal();
     }
 
@@ -480,15 +521,18 @@
       const row = buildRows().find(r => r.__key === key);
       if (!row) return;
       document.getElementById('modalTitle').textContent = 'Edit container';
-      document.getElementById('deleteBtn').style.display = 'inline-block';
+      document.getElementById('f_sr').value = row.sr || '';
       document.getElementById('f_bl').value = row.bl || '';
-      document.getElementById('f_container').value = row.container || '';
       document.getElementById('f_brand').value = row.brand || '';
+      document.getElementById('f_container').value = row.container || '';
       document.getElementById('f_location').value = row.location || '';
+      document.getElementById('f_req').value = row.req_status || '';
       document.getElementById('f_arrival').value = row.arrival || '';
       document.getElementById('f_discharge').value = row.discharge || '';
       document.getElementById('f_out').value = row.out || '';
-      document.getElementById('f_req').value = row.req_status || '';
+      document.getElementById('f_shipping').value = row.shipping_line || '';
+      document.getElementById('f_transporter').value = row.transporter || '';
+      document.getElementById('deleteBtn').style.display = 'inline-block';
       document.getElementById('saveBtn').dataset.mode = 'edit';
       document.getElementById('saveBtn').dataset.key = key;
       openModal();
@@ -498,18 +542,21 @@
       const mode = document.getElementById('saveBtn').dataset.mode;
       const keyValue = document.getElementById('saveBtn').dataset.key;
       const payload = {
+        sr: Number(document.getElementById('f_sr').value) || null,
         bl: document.getElementById('f_bl').value.trim(),
         brand: document.getElementById('f_brand').value.trim(),
         container: document.getElementById('f_container').value.trim(),
         location: document.getElementById('f_location').value.trim(),
+        req_status: document.getElementById('f_req').value.trim(),
         arrival: document.getElementById('f_arrival').value || null,
         discharge: document.getElementById('f_discharge').value || null,
         out: document.getElementById('f_out').value || null,
-        req_status: document.getElementById('f_req').value.trim()
+        shipping_line: document.getElementById('f_shipping').value.trim(),
+        transporter: document.getElementById('f_transporter').value.trim()
       };
 
       if (!payload.bl && !payload.container) {
-        alert('Add BL No. or Container No.');
+        alert('Please add at least a BL No. or Container No.');
         return;
       }
 
@@ -541,8 +588,8 @@
     }
 
     document.getElementById('pwBtn').addEventListener('click', () => {
-      const value = document.getElementById('pwInput').value;
-      if (value === 'amica2026') {
+      const val = document.getElementById('pwInput').value;
+      if (val === 'amica2026') {
         document.getElementById('passwordGate').style.display = 'none';
         document.getElementById('app').style.display = 'block';
       } else {
@@ -557,13 +604,25 @@
     document.getElementById('searchInput').addEventListener('input', render);
     document.getElementById('filterStatus').addEventListener('change', render);
 
+    document.getElementById('bulkAddBtn').addEventListener('click', () => {
+      alert('Bulk add feature ready. Use Add container for each row, or paste container numbers later.');
+    });
+
+    document.getElementById('shippingBtn').addEventListener('click', () => {
+      alert('Shipping Line button is active. You can track the shipping line in each row.');
+    });
+
+    document.getElementById('transporterBtn').addEventListener('click', () => {
+      alert('Transporter button is active. You can track transporter per container in the form.');
+    });
+
     document.getElementById('modal').addEventListener('click', (event) => {
       if (event.target.id === 'modal') closeModal();
     });
 
     async function init() {
       readLocal();
-      await loadRemote();
+      await loadCloud();
       render();
       setSyncStatus('synced');
     }
