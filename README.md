@@ -1,27 +1,43 @@
 # Container Arrival Tracker
 
-A single-page dashboard for tracking shipping containers through their journey — bill of lading, brand, warehouse, arrival, discharge, and out dates, with automatic status and total-days calculations.
+A live single-page dashboard for tracking shipping containers.
 
-## Key technologies
+## Live cloud sync
 
-- Plain HTML/CSS/JavaScript — no build step, no framework
-- Data is kept in the browser's `localStorage`, so edits persist per-device
-- Netlify Edge Function (`netlify/edge-functions/password-gate.js`) adds a shared-password gate in front of the whole site
+The application stores edits in Supabase so multiple browser sessions can share updates. The database must contain this table:
 
-## Running locally
+```sql
+create table if not exists public.tracker_data (
+  id bigint primary key,
+  user_edits jsonb not null default '{}'::jsonb,
+  user_adds jsonb not null default '[]'::jsonb,
+  user_deletes jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
 
-Open `index.html` directly in a browser, or serve the folder with any static file server:
+alter table public.tracker_data enable row level security;
 
-```bash
-npx serve .
+create policy "tracker read" on public.tracker_data
+  for select to anon using (true);
+
+create policy "tracker write" on public.tracker_data
+  for insert to anon with check (true);
+
+create policy "tracker update" on public.tracker_data
+  for update to anon using (true) with check (true);
 ```
 
-To test the password gate locally with Netlify's emulation:
+For browser sync, load these scripts before the application script in `index.html`:
 
-```bash
-netlify dev --port 8889
+```html
+<script src="supabase-config.js"></script>
+<script src="cloud-sync.js"></script>
 ```
 
-## Access
+The bridge watches the tracker's local storage, saves changes to Supabase, loads cloud data on startup, and polls for updates every five seconds.
 
-The site is protected by a single shared password (HTTP Basic Auth), configured via the `SITE_PASSWORD` environment variable in `netlify.toml`.
+> Security note: the Supabase publishable key is safe to use in browser code only when Row Level Security policies are configured correctly. Do not expose a service-role key.
+
+## Deployment
+
+Deploy the repository with Netlify for the existing password-gate configuration, or enable GitHub Pages for the static dashboard.
