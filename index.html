@@ -413,7 +413,7 @@ window.TRACKER_SUPABASE_CONFIG = window.TRACKER_SUPABASE_CONFIG || { url: "", ke
 <div id="pwGate" style="position:fixed;inset:0;background:#ffffff;display:flex;align-items:center;justify-content:center;z-index:9999;">
   <div style="background:#fff;border:0;box-shadow:none;padding:28px 26px;width:320px;max-width:90vw;text-align:center;">
     <div style="font-size:34px;margin-bottom:6px;">📦</div>
-    <div style="font-size:26px;font-weight:700;color:#111827;letter-spacing:.2px;">Welcome Mr Love</div>
+    <div style="font-size:26px;font-weight:700;color:#111827;letter-spacing:.2px;">WELCOME JCD GLOBAL TEAM</div>
     <div style="font-size:13px;color:#6b7280;margin:6px 0 22px;">JCD GLOBAL ARRIVAL TRACKING</div>
     <input id="pwInput" type="password" placeholder="Enter password" style="width:100%;padding:12px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;color:#111827;font-size:14px;box-sizing:border-box;text-align:center;outline:none;">
     <button id="pwBtn" style="margin-top:12px;width:100%;padding:12px;border-radius:10px;border:none;background:#111827;color:#fff;font-weight:600;font-size:14px;cursor:pointer;">Enter</button>
@@ -937,7 +937,7 @@ function render(){
   const dischN=rows.filter(r=>r.discharge).length, emptyN=rows.filter(r=>r.discharge&&!r.out).length,
         notOutN=rows.filter(r=>r.arrival&&!r.out).length, pendN=rows.filter(r=>!r.out).length;
   const statsEl = document.getElementById('stats');
-  statsEl.innerHTML = [['all','Total Containers',total,'',''],['disch','Total Discharge',dischN,'good','t-good'],['empty','Empty Rest @ W/H',emptyN,'warn','t-warn'],['notout','Not Out Yet',notOutN,'warn','t-warn'],['pend','Pending Containers',pendN,'bad','t-bad']]
+  statsEl.innerHTML = [['all','Total Containers',total,'',''],['disch','Total Received',dischN,'good','t-good'],['empty','Empty Rest @ W/H',emptyN,'warn','t-warn'],['notout','Not Out Yet',notOutN,'warn','t-warn'],['pend','Pending Containers',pendN,'bad','t-bad']]
     .map(c=>`<div class="stat clk ${c[4]}" data-card="${c[0]}"><div class="label">${c[1]}</div><div class="num ${c[3]}">${c[2]}</div></div>`).join('');
   statsEl.querySelectorAll('.clk').forEach(e=>e.onclick=()=>{document.getElementById('filterCard').value=e.dataset.card==='all'?'':e.dataset.card;showView('list');});
 
@@ -1050,7 +1050,7 @@ function render(){
     document.getElementById('utWh').innerHTML =
       `<div class="box" style="background:linear-gradient(135deg,#f97316,#ea580c);"><div class="t">HINO 1-2</div><div class="n">${h12.d}</div><div class="s">discharged · total ${h12.t}</div></div>
        <div class="box" style="background:linear-gradient(135deg,#14b8a6,#0f766e);"><div class="t">HINO 1</div><div class="n">${h1.d}</div><div class="s">discharged · total ${h1.t}</div></div>
-       <div class="box" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);"><div class="t">TOTAL DISCHARGED</div><div class="n">${dis.length}</div><div class="s">of ${rows.length} containers</div></div>`;
+       <div class="box" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9);"><div class="t">TOTAL RECEIVED</div><div class="n">${dis.length}</div><div class="s">of ${rows.length} containers</div></div>`;
     const group = (k, blank)=>{
       const m = {};
       rows.forEach(r=>{ const n = r[k] || blank; m[n] = m[n] || {d:0,t:0}; m[n].t++; if(r.discharge) m[n].d++; });
