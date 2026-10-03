@@ -427,7 +427,7 @@ window.TRACKER_SUPABASE_CONFIG = window.TRACKER_SUPABASE_CONFIG || { url: "", ke
   function unlock(){
     document.documentElement.classList.remove('locked');
     document.getElementById('pwGate').style.display = 'none';
-    try{ setTimeout(function(){ showToast('Welcome Mr Love 👋'); }, 300); }catch(e){}
+    try{ setTimeout(function(){ showToast('Welcome JCD GLOBAL TEAM 👋'); }, 300); }catch(e){}
   }
   function check(){
     var v = document.getElementById('pwInput').value;
@@ -440,17 +440,17 @@ window.TRACKER_SUPABASE_CONFIG = window.TRACKER_SUPABASE_CONFIG || { url: "", ke
 })();
 </script>
 
-<nav id="nav"><div class="logo">📦 JCD GLOBAL<br>ARRIVAL TRACKING<div style="font-size:10px;font-weight:500;color:#5a6b85;margin-top:6px;">Mr Love Khetani</div></div>
+<nav id="nav"><div class="logo">📦 JCD GLOBAL<br>ARRIVAL TRACKING<div style="font-size:10px;font-weight:500;color:#5a6b85;margin-top:6px;">Mr Love</div></div>
 <button data-v="dash" class="on">📊 Dashboard</button>
 <button data-v="list">📋 Containers</button>
 <button data-v="sl">🚢 Shipping Line</button>
-<button data-v="tr">🚛 Transporter</button></nav>
+<button data-v="tr">🚛 Transistor</button></nav>
 <header class="top">
   <div class="inner">
     <div>
       <h1>JCD GLOBAL ARRIVAL TRACKING</h1>
       <div class="sub">Arrival → Discharge → Out, across HINO 1 &amp; HINO 1-2</div>
-      <div class="sub" style="font-weight:600;color:#fff;margin-top:6px;">Software made by Mr Love Khetani</div>
+      <div class="sub" style="font-weight:600;color:#fff;margin-top:6px;">Software made by Mr Love</div>
     </div>
     <div class="asof">Data as of <b id="asOfDate">—</b><br>Delay limit: <b id="delayLimitLbl">4</b> days<br><div id="themePick"></div><span id="syncStatus" style="display:inline-block;margin-top:6px;padding:3px 7px;border-radius:12px;background:#182b3f;color:#8ba0b5;font-size:10px;">Cloud Sync: connecting…</span></div>
   </div>
@@ -467,7 +467,7 @@ window.TRACKER_SUPABASE_CONFIG = window.TRACKER_SUPABASE_CONFIG || { url: "", ke
       <div class="ut-big" id="utWh"></div>
     </div>
     <div class="panel" style="margin-bottom:0;">
-      <div class="panel-head"><h2>🚛 Transporter — Offloaded Containers</h2></div>
+      <div class="panel-head"><h2>🚛 Transistor — Offloaded Containers</h2></div>
       <div id="utTr"></div>
     </div>
     <div class="panel" style="margin-bottom:0;">
@@ -519,7 +519,7 @@ window.TRACKER_SUPABASE_CONFIG = window.TRACKER_SUPABASE_CONFIG || { url: "", ke
       <select id="filterLocation"><option value="">All warehouses</option></select>
       <select id="filterBrand"><option value="">All brands</option></select>
       <select id="filterSL"><option value="">All shipping lines</option></select>
-      <select id="filterTR"><option value="">All transporters</option></select>
+      <select id="filterTR"><option value="">All Transistors</option></select>
       <select id="filterCard"><option value="">All containers</option><option value="disch">Discharged</option><option value="empty">Empty rest @ W/H</option><option value="notout">Not out yet</option><option value="pend">Pending</option></select>
       <select id="filterStatus">
         <option value="">All status</option>
@@ -544,7 +544,7 @@ window.TRACKER_SUPABASE_CONFIG = window.TRACKER_SUPABASE_CONFIG || { url: "", ke
             <th data-k="container">Container</th>
             <th data-k="location">Warehouse</th>
             <th data-k="sl">Shipping line</th>
-            <th data-k="tr">Transporter</th>
+            <th data-k="tr">Transistor</th>
             <th data-k="arrival">Arrival</th>
             <th data-k="discharge">Discharge</th>
             <th data-k="out">Out</th>
@@ -564,7 +564,7 @@ window.TRACKER_SUPABASE_CONFIG = window.TRACKER_SUPABASE_CONFIG || { url: "", ke
 <div id="vLists" style="display:none"><div class="panel"><div class="panel-head"><h2 id="listTitle"></h2></div>
 <div class="toolbar"><input type="text" id="listInput" placeholder="Add new name..."><button class="btn" id="listAddBtn">+ Add</button></div>
 <div id="listBody"></div></div></div>
-  <footer>JCD GLOBAL ARRIVAL TRACKING · Software made by Mr Love Khetani · Container data loaded from your arrival sheet · Changes are saved to Supabase Cloud and synced across devices.</footer>
+  <footer>JCD GLOBAL ARRIVAL TRACKING · Software made by Mr Love </footer>
 </main>
 
 <div class="modal-bg" id="modalBg">
@@ -581,7 +581,7 @@ window.TRACKER_SUPABASE_CONFIG = window.TRACKER_SUPABASE_CONFIG || { url: "", ke
     </div>
     <div class="field-row">
       <div class="field"><label>Shipping line</label><input id="f_sl" type="text" list="slList"></div>
-      <div class="field"><label>Transporter</label><input id="f_tr" type="text" list="trList"></div>
+      <div class="field"><label>Transistor</label><input id="f_tr" type="text" list="trList"></div>
     </div>
     <div class="field-row">
       <div class="field"><label>Arrival date</label><input id="f_arrival" type="date"></div>
@@ -619,7 +619,7 @@ window.TRACKER_SUPABASE_CONFIG = window.TRACKER_SUPABASE_CONFIG || { url: "", ke
     </div>
     <div class="field-row">
       <div class="field"><label>Shipping line</label><input id="b_sl" type="text" list="slList"></div>
-      <div class="field"><label>Transporter</label><input id="b_tr" type="text" list="trList"></div>
+      <div class="field"><label>Transistor</label><input id="b_tr" type="text" list="trList"></div>
     </div>
     <div class="field-row">
       <div class="field"><label>Arrival date</label><input id="b_arrival" type="date"></div>
@@ -867,7 +867,7 @@ function fmtDate(s){
   return d.toLocaleDateString('en-GB', {day:'2-digit', month:'short'});
 }
 
-// ---- shipping line / transporter lists + views ----
+// ---- shipping line / Transistorlists + views ----
 function guessSL(bl){ return /^MEDU|^MSC/i.test(bl||'')?'MSC':(/^MAEU/i.test(bl||'')?'Maersk':''); }
 function getLists(){ const L=userEdits.__lists||{}; return {sl:L.sl||['MSC','Maersk'], tr:L.tr||[]}; }
 function allNames(kind,rows){ return [...new Set([...getLists()[kind], ...rows.map(r=>r[kind]).filter(Boolean)])].sort(); }
@@ -885,7 +885,7 @@ function showView(v){
 }
 function renderLists(){
   const rows=buildRows(), k=listKind;
-  document.getElementById('listTitle').textContent = k==='sl' ? '🚢 Shipping Lines' : '🚛 Transporters';
+  document.getElementById('listTitle').textContent = k==='sl' ? '🚢 Shipping Lines' : '🚛 Transistor';
   document.getElementById('listBody').innerHTML = allNames(k,rows).map(n=>{
     const c=rows.filter(r=>r[k]===n).length;
     return '<div class="lrow"><span class="n">'+n+'</span><span class="c">'+c+' containers</span><button class="btn ghost small" data-del="'+n+'">Delete</button></div>';
@@ -923,7 +923,7 @@ function render(){
     locs.forEach(l=>{ const o=document.createElement('option'); o.value=l; ll.appendChild(o); });
   }
 
-  fillSel('filterSL',allNames('sl',rows),'All shipping lines');fillSel('filterTR',allNames('tr',rows),'All transporters');
+  fillSel('filterSL',allNames('sl',rows),'All shipping lines');fillSel('filterTR',allNames('tr',rows),'All Transistor');
   fillDl('slList',allNames('sl',rows));fillDl('trList',allNames('tr',rows));
   // stats
   const total = rows.length;
@@ -1058,7 +1058,7 @@ function render(){
         `<div class="ut-row"><span class="nm">${n}</span><span class="tot">total ${v.t}</span><span class="pill">${v.d} offloaded</span></div>`).join('')
         || '<div class="empty">No data yet.</div>';
     };
-    document.getElementById('utTr').innerHTML = group('tr','Transporter not set');
+    document.getElementById('utTr').innerHTML = group('tr','Transistornot set');
     document.getElementById('utSl').innerHTML = group('sl','Shipping line not set');
   })();
 
@@ -1290,7 +1290,7 @@ function showToast(msg){
 
 document.getElementById('exportBtn').addEventListener('click', ()=>{
   const rows = buildRows();
-  const headers = ['SR','BL No.','Brand','Container','Warehouse','Shipping Line','Transporter','Arrival','Discharge','Out','Total Days','Status'];
+  const headers = ['SR','BL No.','Brand','Container','Warehouse','Shipping Line','Transistor','Arrival','Discharge','Out','Total Days','Status'];
   const lines = [headers.join(',')];
   rows.forEach(r=>{
     lines.push([r.sr, r.bl, r.brand, r.container, r.location, r.sl, r.tr, r.arrival||'', r.discharge||'', r.out||'', r.total??'', r.status]
