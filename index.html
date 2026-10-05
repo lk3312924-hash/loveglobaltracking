@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>JCD GLOBAL ARRIVAL TRACKING</title>
+<title>GLOBAL ARRIVAL TRACKING</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -413,8 +413,8 @@ window.TRACKER_SUPABASE_CONFIG = window.TRACKER_SUPABASE_CONFIG || { url: "", ke
 <div id="pwGate" style="position:fixed;inset:0;background:#ffffff;display:flex;align-items:center;justify-content:center;z-index:9999;">
   <div style="background:#fff;border:0;box-shadow:none;padding:28px 26px;width:320px;max-width:90vw;text-align:center;">
     <div style="font-size:34px;margin-bottom:6px;">📦</div>
-    <div style="font-size:26px;font-weight:700;color:#111827;letter-spacing:.2px;">WELCOME JCD GLOBAL TEAM</div>
-    <div style="font-size:13px;color:#6b7280;margin:6px 0 22px;">JCD GLOBAL ARRIVAL TRACKING</div>
+    <div style="font-size:26px;font-weight:700;color:#111827;letter-spacing:.2px;">WELCOME TEAM</div>
+    <div style="font-size:13px;color:#6b7280;margin:6px 0 22px;">GLOBAL ARRIVAL TRACKING</div>
     <input id="pwInput" type="password" placeholder="Enter password" style="width:100%;padding:12px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;color:#111827;font-size:14px;box-sizing:border-box;text-align:center;outline:none;">
     <button id="pwBtn" style="margin-top:12px;width:100%;padding:12px;border-radius:10px;border:none;background:#111827;color:#fff;font-weight:600;font-size:14px;cursor:pointer;">Enter</button>
     <div id="pwErr" style="color:#e11d48;font-size:12px;margin-top:10px;height:14px;"></div>
@@ -422,12 +422,12 @@ window.TRACKER_SUPABASE_CONFIG = window.TRACKER_SUPABASE_CONFIG || { url: "", ke
 </div>
 <script>
 (function(){
-  var PW_HASH = "1pc5aasccx9"; // hash of the password (Amica2027)
+  var PW_HASH = "1pc5aasccx9"; // hash of the password (Amica@2027)
   function cyrb53(str,seed){seed=seed||0;var h1=0xdeadbeef^seed,h2=0x41c6ce57^seed;for(var i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);return (4294967296*(2097151&h2)+(h1>>>0)).toString(36);}
   function unlock(){
     document.documentElement.classList.remove('locked');
     document.getElementById('pwGate').style.display = 'none';
-    try{ setTimeout(function(){ showToast('Welcome JCD GLOBAL TEAM 👋'); }, 300); }catch(e){}
+    try{ setTimeout(function(){ showToast('Welcome TEAM 👋'); }, 300); }catch(e){}
   }
   function check(){
     var v = document.getElementById('pwInput').value;
