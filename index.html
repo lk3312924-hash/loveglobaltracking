@@ -1004,7 +1004,7 @@ function render(){
   const dischN=rows.filter(r=>r.discharge).length, emptyN=rows.filter(r=>r.discharge&&!r.out).length,
         notOutN=rows.filter(r=>r.arrival&&!r.out).length, pendN=rows.filter(r=>!r.out&&!r.discharge&&!r.arrival).length, whN=rows.filter(r=>r.arrival&&!r.discharge&&!r.out).length;
   const statsEl = document.getElementById('stats');
-  statsEl.innerHTML = [['all','Total Containers',total,'',''],['disch','Total Container Discharges',dischN,'good','t-good'],['empty','Empty Containers @ W/H',emptyN,'warn','t-warn'],['notout','Not Out Yet',notOutN,'warn','t-warn'],['pend','Pending Containers',pendN,'bad','t-bad'],['out','Containers Out',rows.filter(r=>r.out).length,'good','t-good'],['wh','Container @ W/H',whN,'warn','t-warn']]
+  statsEl.innerHTML = [['all','Total Containers',total,'',''],['disch','Total Container Discharges',dischN,'good','t-good'],['empty','Empty Containers @ W/H',emptyN,'warn','t-warn'],['notout','Not Out Yet',notOutN,'warn','t-warn'],['pend','Pending Containers',pendN,'bad','t-bad'],['out','Containers Out',rows.filter(r=>r.out).length,'good','t-good'],['wh','Full Container @ W/H',whN,'warn','t-warn']]
     .map(c=>`<div class="stat clk ${c[4]}" data-card="${c[0]}"><div class="label">${c[1]}</div><div class="num ${c[3]}">${c[2]}</div></div>`).join('');
   statsEl.querySelectorAll('.clk').forEach(e=>e.onclick=()=>{document.getElementById('filterCard').value=e.dataset.card==='all'?'':e.dataset.card;showView('list');});
 
